@@ -28,17 +28,21 @@ sbt -Dsbt.log.noformat=true test > $filename
 
 #upload it to Confluence
 echo "Uploading $filename to confluence..."
+
+#replace with your mail ID and obtain the API token from https://id.atlassian.com/manage/api-tokens
 curl --request PUT \
-                           --user gireesh.itcc@iiap.res.in:Ae1NK44QHtbl9lluG7mW93E2 \ #replace with your mail ID and obtain the API token from https://id.atlassian.com/manage/api-tokens
-                           --header 'Accept: application/json' \
+                           --user gireesh.itcc@iiap.res.in:Ae1NK44QHtbl9lluG7mW93E2 \
+			   --header 'Accept: application/json' \
                            --header 'Content-Type: multipart/form-data' \
                            --header 'X-Atlassian-Token: nocheck' \
                            --form 'file=@'$filename \
                            --url 'https://tmt-project.atlassian.net/wiki/rest/api/content/208764929/child/attachment' #replace with your page under which the test results file should be uploaded
+
 #move the files to confluence test directory
 echo "\nMoving $filename to TestResConfl directory..."
 mv $filename ../TestResConfl    #replace with your directory where the files need to be stored
 
 #TODO: to parse the test file and locate [error] lines and report
 
-#TODO: make it periodic. The script should run at 10.00 AM everyday. Well my system should be on to do this or it has to be made to switch one automatically and then run it. Ideally, on logging into this system it could be made to run, thereby avoiding me to do a simple task of opening the command line and running myself. Well, is it worth the effort? 
+#TODO: make it periodic. The script should run at 10.00 AM everyday. Well my system should be on to do this or it has to be made to switch one automatically and then run it.
+#Ideally, on logging into this system it could be made to run, thereby avoiding me to do a simple task of opening the command line and running myself. Well, is it worth the effort? 
