@@ -6,7 +6,7 @@ uploadRes=UploadRes$today.txt
 
 #navigate to csw-prod directory
 echo "Going into csw home directory..."
-cd IdeaProjects/csw/     #this can be replaced with your directory path of csw checked folder
+cd ../IdeaProjects/csw/     #this can be replaced with your directory path of csw checked folder
 touch $filename
 touch $failedTests
 touch $uploadRes
@@ -53,8 +53,8 @@ curl -D- \
 
 #Use the Slack API token to update the Testing V&V channel about the failed tests
 slackAtt="%5B%7B%22CSW Test Results%22%3A%20%22Tests that have failed:%22%2C%20%22text%22%3A%20%22$slackMsg%22%7D%5Di"
-slackChnl="test"
-slackToken="xoxp-90714720485-282106523457-479155436914-15d6aa041c3570aa00ff8d92abb1875b"
+slackChnl="csw-testing_validate"
+slackToken="xoxp-90714720485-282106523457-479181516835-de503b5447fc298ca59a707d31859f3b"
 detLogLink="Detailed log: https://tmt-project.atlassian.net/wiki/x/AYBxD"
 curl -X POST "https://slack.com/api/chat.postMessage" -d "token=$slackToken&channel=$slackChnl&text=$detLogLink&attachments=$slackAtt&pretty=1"
 
