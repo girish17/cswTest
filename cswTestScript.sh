@@ -3,6 +3,8 @@ today=`date '+%d%b%I%p'`
 filename=TestResults$today.txt
 failedTests=TestFailed$today.txt
 uploadRes=UploadRes$today.txt
+userToken="$(cat confToken)"
+slackToken="$(cat slackToken)"
 
 #navigate to csw-prod directory
 echo "Going into csw home directory..."
@@ -24,11 +26,10 @@ sbt -Dsbt.log.noformat=true test > $filename
 #upload it to Confluence
 echo "Uploading $filename to confluence..."
 
-#userToken=gireesh.itcc@iiap.res.in:Ae1NK44QHtbl9lluG7mW93E2
-#confluenceURL=https://tmt-project.atlassian.net/wiki/rest/api/content/208764929/child/attachment
+confluenceURL=https://tmt-project.atlassian.net/wiki/rest/api/content/208764929/child/attachment
 #replace with your mail ID and obtain the API token from https://id.atlassian.com/manage/api-tokens
 curl --request PUT \
-                           --user 'gireesh.itcc@iiap.res.in:Ae1NK44QHtbl9lluG7mW93E2' \
+                           --user 'gireesh.itcc@iiap.res.in:'$userToken \
 			   --header 'Accept: application/json' \
                            --header 'Content-Type: multipart/form-data' \
                            --header 'X-Atlassian-Token: nocheck' \
@@ -62,7 +63,6 @@ curl -D- \
 #Use the Slack API token to update the Testing V&V channel about the failed tests
 slackAtt="%5B%7B%22CSW Test Results%22%3A%20%22Tests that have failed:%22%2C%20%22text%22%3A%20%22$slackMsg%22%7D%5Di"
 slackChnl="csw-testing_validate"
-slackToken="xoxp-90714720485-282106523457-479181516835-de503b5447fc298ca59a707d31859f3b"
 detLogLink="Detailed log: https://tmt-project.atlassian.net/wiki/x/AYBxD"
 curl -X POST "https://slack.com/api/chat.postMessage" -d "token=$slackToken&channel=$slackChnl&text=$detLogLink&attachments=$slackAtt&pretty=1"
 
