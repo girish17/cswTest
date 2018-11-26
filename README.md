@@ -1,5 +1,5 @@
 # cswTest
-A script that automatically does following things
+<h3>A script that automatically does following things</h3>
 <ol>
   <li>Checks out the latest version of [CSW Project](https://github.com/tmtsoftware/csw) from Git Repository</li>
   <li>Launches the sbt console and runs the test</li>
