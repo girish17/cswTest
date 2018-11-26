@@ -3,8 +3,8 @@ today=`date '+%d%b%I%p'`
 filename=TestResults$today.txt
 failedTests=TestFailed$today.txt
 uploadRes=UploadRes$today.txt
-userToken="$(cat confToken)"
-slackToken="$(cat slackToken)"
+userToken="$(cat ../tokenDir/confToken)"
+slackToken="$(cat ../tokenDir/slackToken)"
 
 #navigate to csw-prod directory
 echo "Going into csw home directory..."
