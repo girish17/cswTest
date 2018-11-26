@@ -37,7 +37,13 @@ curl --request PUT \
 
 #to parse the test file and locate [error] lines and report
 echo "Parsing the test file to locate [error] lines..."
-slackMsg="$(grep "\[error\] csw" $filename)"
+
+if [$(grep "\[success\]" $filename)]; then
+	slackMsg=" Tests executed successfully" 
+else
+
+	slackMsg="$(grep "\[error\]" $filename)"
+fi
 echo slackMsg > $failedTests
 testRes="$(grep "Total time:" $filename)"
 
