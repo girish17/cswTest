@@ -52,7 +52,7 @@ testRes="$(grep "Total time:" $filename)"
 attachmentId=$(jq --raw-output '.results[0].id' $uploadRes)
 echo "\nUploaded test file attachment id: $attachmentId"
 curl -D- \
-  -u gireesh.itcc@iiap.res.in:Ae1NK44QHtbl9lluG7mW93E2 \
+  -u gireesh.itcc@iiap.res.in:$userToken \
   -X POST \
   -H "X-Atlassian-Token: nocheck" \
   -F "file=@"$filename \
